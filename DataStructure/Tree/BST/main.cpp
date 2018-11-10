@@ -30,8 +30,11 @@ tree* search(tree *l, item_type x) {
 
 void traversal_in_order (tree *l) {
   if (l == NULL) return;
+  
   traversal_in_order(l->left);
-  std::cout <<  l->item << std::endl;
+  std::cout << std::left;
+  std::cout <<  std::setw(4) << l->item << std::endl;
+  std::cout << std::right;
   traversal_in_order(l->right);
 }
 
@@ -60,5 +63,30 @@ tree* find_minimum(tree* l) {
 
 tree* find_maximum(tree *l) {
   if (l == NULL) return(l);
+  tree* max_tree;
+  while(l->right != NULL) {
+    max_tree = l->right;
+  }
+  return max_tree;
+}
 
+void insert_tree(tree **l, item_type x, tree* parent) {
+  tree *p; // temporary pointer
+
+  // if we hit leaf, add new node, and move the linked pointer to new node
+  if ( (*l) == nullptr) {
+    p = (tree*) malloc(sizeof(tree));
+    p->item = x;
+    p->left = nullptr;
+    p->right = nullptr;
+    p->parent = parent;
+  // update linked subtree
+    *l = p;
+  }
+
+  if (x < (*l)->item) {
+    insert_tree( &((*l)->left), x, *l ); 
+  }else {
+    insert_tree( &((*l)->right), x, *l);
+  }
 }
