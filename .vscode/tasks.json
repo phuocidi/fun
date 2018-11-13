@@ -12,9 +12,14 @@
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-O0",
                 "-Wall",
+                "-std=c++11",
                 "-g",
                 "${file}"
-            ]
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
