@@ -103,6 +103,40 @@ namespace bst {
     *l = nullptr;
   }
 
+  tree* delete_node(tree* l, int x) {
+  // base case
+  if (l == nullptr) return l;
+  if (x < l->item) {
+    l->left = delete_node(l->left, x);
+  } // x is smaller, hence look only left branch
+
+  if (x > l->item ) {
+    l->right = delete_node(l->right, x);
+  } // x is larger, hence look only right branch
+
+  if ( x == l-> item) {
+    if ( l->left == nullptr) {
+      tree* tmp = l->right;
+      delete(l);
+      return tmp; 
+    }else if ( l->right == nullptr){
+      tree *tmp = l->right;
+      delete(l);
+      return tmp;
+    } // these blocks assign node back to the above two assignment
+
+  tree* tmp = find_minimum(l->right); // populate the leftmost node in the right brach to replace the current node
+
+  l->item = tmp->item;
+  
+  // delete the inorder sucess
+  l->right = delete_node(l->right, tmp->item);
+
+  } // find the correct node to delete, do the rearrange 
+
+  return l;
+}
+
   void pprint(tree* l, int indent = 2) {
     if (l == nullptr) return;
     std::cout << std::setw(indent) << l->item << '\n';
@@ -113,17 +147,39 @@ namespace bst {
     }
   }
 
+  void test_delete_node() {
+    tree* root =  new tree(5);
+    int data[] = {3,7,2,4,6,8};
+    int n = sizeof(data) / sizeof(data[0]);
+    for (int i = 0; i < n; ++i){
+      int v = data[i];
+      insert_tree(&root, v, root);
+    }
+    pprint(root);
+    tree* new_root = delete_node(root, 2);
+    pprint(new_root);
+  }
+
+  void test_delete_tree() {
+      tree * root = new tree(2);
+    int data[] =  {1,7,4,8,6,5};
+    int n = sizeof(data) / sizeof(data[0]);
+    for (int i = 0; i < n; ++i){
+      int v = data[i];
+      bst::insert_tree(&root, v, root);
+    }
+    bst::pprint(root);
+    bst::delete_tree(&root);
+  }
+
 }
 
+
+
+
 int main(int argc, char* argv[]) {
-  tree * root = new tree(2);
-  int data[] =  {1,7,4,8,6,5};
-  int n = sizeof(data) / sizeof(data[0]);
-  for (int i = 0; i < n; ++i){
-    int v = data[i];
-    bst::insert_tree(&root, v, root);
-  }
-  bst::pprint(root);
-  bst::delete_tree(&root);
+
+
+  bst::test_delete_node();
   return EXIT_SUCCESS;
 }
