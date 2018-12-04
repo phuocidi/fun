@@ -10,6 +10,18 @@
     "stdexcept": "cpp",
     "type_traits": "cpp",
     "typeinfo": "cpp",
-    "algorithm": "cpp"
-  }
+    "algorithm": "cpp",
+    "__locale": "cpp",
+    "string": "cpp",
+    "locale": "cpp",
+    "clocale": "cpp",
+    "iosfwd": "cpp",
+    "utility": "cpp"
+  },
+  "clang.cxxflags": [
+    "-std=c++11",
+    "-std=c++14",
+    "-std=c++17"
+  ],
+  "clang.cflags": ["c11"]
 }

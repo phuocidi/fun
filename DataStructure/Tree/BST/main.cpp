@@ -11,8 +11,10 @@ typedef struct tree {
 
   tree(): parent(nullptr), left(nullptr), right(nullptr) {}
   tree(int v) {
-    tree();
     this->item = v;
+    this->parent = nullptr;
+    this->left = nullptr;
+    this->right = nullptr;
   }
 } tree;
 
@@ -73,14 +75,15 @@ namespace bst {
     tree *p; // temporary pointer
 
     // if we hit leaf, add new node, and move the linked pointer to new node
-    if ( (*l) == nullptr) {
+    tree *current = (*l);
+    if ( current == nullptr) {
       p = new tree(x);
       p->parent = parent;
     // update linked subtree
       *l = p;
       return;
     }
-    tree *current = (*l);
+    
     if (x < current->item) {
       insert_tree( &(current->left), x, *l ); 
     }else {
@@ -117,10 +120,12 @@ namespace bst {
   if ( x == l-> item) {
     if ( l->left == nullptr) {
       tree* tmp = l->right;
+      l->parent = nullptr;
       delete(l);
       return tmp; 
     }else if ( l->right == nullptr){
       tree *tmp = l->right;
+      l->parent = nullptr;
       delete(l);
       return tmp;
     } // these blocks assign node back to the above two assignment
@@ -147,6 +152,7 @@ namespace bst {
     }
   }
 
+  /// - MARK: Test cases
   void test_delete_node() {
     tree* root =  new tree(5);
     int data[] = {3,7,2,4,6,8};
@@ -155,9 +161,11 @@ namespace bst {
       int v = data[i];
       insert_tree(&root, v, root);
     }
-    pprint(root);
+    traversal_in_order(root);
+    std::cout << std::endl <<"------------------" << std::endl;
     tree* new_root = delete_node(root, 2);
-    pprint(new_root);
+    // pprint(new_root);
+    traversal_in_order(root);
   }
 
   void test_delete_tree() {
