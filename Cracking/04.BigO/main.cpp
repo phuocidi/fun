@@ -54,7 +54,11 @@ void testIsPrime() {
   cout<<endl; 
 }
 
+// Ex 12
+void permutation(string s);
 void permutation(string str, string prefix);
+
+
 void permutation(string s) {
   permutation(s, string(""));
 }
@@ -72,9 +76,62 @@ void permutation(string str, string prefix) {
   }
 }
 
+// Reverse words ?Auto Club? to ?Club Auto?
+void reverseString( string& str, size_t start, size_t end);
+void reverseWords( string& str);
+void testReverseString();
+
+void reverseString( string& str, size_t start, size_t end) {
+  // swap/flip subsequence char
+  size_t offset = start;
+  size_t mid = (end + offset)/2;
+
+  for (int i = start; i < mid; ++i) {
+    size_t rightIndex = end - i - 1 + offset;
+    char temp = str[rightIndex];
+    str[rightIndex] = str[i];
+    str[i] = temp;
+  }
+}
+
+void reverseWords( string& str) {
+  size_t n = str.size();
+  size_t start, end = 0;
+  while(end<n){
+    end++;
+    if (str[end] == ' ') {
+      reverseString(str, start, end);
+      start = end + 1;
+    } else if (str[end] == *(str.end()) ) {
+      reverseString(str, start, end);
+    }
+  }
+  reverseString(str, 0, n);
+}
+
+void testReverseString() {
+  string str = string("Auto Club");
+  reverseWords(str);
+  cout << str << endl;
+}
+
+// Ex VI.5 Compute iteger square root of a number
+
+int sqrt_helper(int n, int min, int max);
+int sqrtInt(int n);
+
+int sqrtInt(int n) {
+  return sqrt_helper(n, 1, n) ;
+}
+
+int sqrt_helper(int n, int min, int max) {
+
+}
 
 int main() {
   // testReverse();
   // testIsPrime();
-  permutation( string("abc"));
+  // permutation( string("abc"));
+  testReverseString();
+
 }
