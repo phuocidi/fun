@@ -1,8 +1,5 @@
 .vscode/**
-<<<<<<< HEAD
-*DS_Store
-.code-workspace
-=======
+
 *DS_Store**
 
 # Prerequisites
@@ -40,4 +37,3 @@
 
 #Mac Clang symbol
 *dSYM
->>>>>>> origin
