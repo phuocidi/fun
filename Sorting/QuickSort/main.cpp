@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -71,9 +72,3 @@ void testQuickSort() {
     pprint(arr2, n);
 
 }
-
-int main() {
-    testQuickSort();
-}
-
-

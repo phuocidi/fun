@@ -4,22 +4,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build cpp",
+            "label": "debug build cpp",
             "type": "shell",
             "command": "g++",
             "args": [
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe",
-                "-O0",
                 "-Wall",
-                "-std=c++11",
+                "-std=c++14",
+                "-I${fileDirname}",
+                "-L${fileDirname}",
                 "-g",
-                "${file}"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ]
         }
     ]
 }
