@@ -50,7 +50,7 @@ void swap(int arr [], int i, int j) {
     }
 }
 
-void pprint(int arr [] , int n) {
+void pprint(int arr[] , int n) {
     for (int i = 0; i < n; ++i) {
         cout << arr[i] << " | ";
     }
@@ -58,7 +58,7 @@ void pprint(int arr [] , int n) {
 }
 
 void testQuickSort() {
-    const int n {10};
+    const int n = 10 ;
     int arr1 [n] = {9,8,7,6,5,4,3,2,1,0 };
     int arr2 [n] = {1,0,7,6,5,5,5,9,1,0 };
     int arr3[5] = {4,4,4,4,4};
@@ -71,4 +71,8 @@ void testQuickSort() {
     quicksort(arr2, 0, n-1);
     pprint(arr2, n);
 
+}
+
+int main() {
+  testQuickSort();
 }
