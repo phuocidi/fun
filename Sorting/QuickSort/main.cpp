@@ -4,69 +4,75 @@
 
 using namespace std;
 
-int partition(vector<int> &v, int left, int right);
-void quick_sort(vector<int> &v, int left, int right);
-void swap(vector<int> &v, int left, int right);
+void quicksort(int arr [], int lefft, int right);
+int partition(int arr [], int left, int right);
+void swap(int arr [], int i, int j);
 
-
-void swap(vector<int> &v, int l, int r) {
-  if (l == r) return;
-  int temp = v[l];
-  v[l] = v[r];
-  v[r] = temp;
+void quicksort(int arr [], int left, int right) {
+    int index = partition(arr, left, right);
+    if (left < index - 1 ) {
+        quicksort(arr, left, index - 1 );
+    }
+    if (index < right) {
+        quicksort(arr, index, right);
+    }
 }
 
+int partition(int arr [], int left, int right) {
+    // find the pivot; 
+    int mid = (left + right) / 2;
+    int pivot = arr[mid];
+    while (left <= right) {
+        // Find the element on the left that should be on the right
+        while(arr[left] < pivot)  {
+            left++;
+        }
+        //Find the element on the right that should be on the left;
+        while(arr[right] > pivot) {
+            right--;
+        } 
 
-
-int partition(vector<int> &v, int l, int r) {
-  int mid = (l + r ) /2;
-  int pivot = v[mid];
-  
-  while ( l <= r) {
-  // move part in the right that is greater than pivot to the left
-    while ( v[l] < pivot) {
-      l++;
+        // swap the value
+        if (left <= right) {
+            swap(arr, left, right);
+            right--;
+            left++;  
+        }
     }
-
-  // vice versa
-    while (v[r] > pivot) {
-      r--;
-    }
-
-    if (l <= r) {
-      swap(v, l, r);
-      l++;
-      r--;
-    }
-  }
-
-  return l;
+    return left;
 }
 
-void quick_sort(vector<int> &v, int l, int r) {
-  int index = partition(v, l, r);
-
-  if (l < index-1) {
-    quick_sort(v, l, index - 1);
-  }
-
-  if (index < r) {
-    quick_sort(v, index, r);
-  }
-  
+void swap(int arr [], int i, int j) {
+    if (i != j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
 }
 
-void test_quick_sort() {
-  vector<int> v { 9,7,8,1,5,6,0,2};
-  int r = v.size() -1;
-  quick_sort(v, 0, r); 
-  
-  for (auto const &item : v) {
-    cout << item << " | ";
-  }
-  cout << endl;
+void pprint(int arr[] , int n) {
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " | ";
+    }
+    cout << endl;
+}
+
+void testQuickSort() {
+    const int n = 10 ;
+    int arr1 [n] = {9,8,7,6,5,4,3,2,1,0 };
+    int arr2 [n] = {1,0,7,6,5,5,5,9,1,0 };
+    int arr3[5] = {4,4,4,4,4};
+    quicksort(arr1, 0, n-1);
+    pprint(arr1, n);
+
+    quicksort(arr3, 0, 4);
+    pprint(arr3, 5);
+
+    quicksort(arr2, 0, n-1);
+    pprint(arr2, n);
+
 }
 
 int main() {
-  test_quick_sort();
+  testQuickSort();
 }
