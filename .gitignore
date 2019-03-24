@@ -43,6 +43,6 @@
 .vscode/tasks.json
 
 # CMake
-*/bin/**
-*/build/**
-*/CMakeFiles/**
+bin
+build
+CMakeFiles
