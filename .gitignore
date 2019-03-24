@@ -41,3 +41,8 @@
 .vscode/settings.json
 .vscode/launch.json
 .vscode/tasks.json
+
+# CMake
+*/bin/**
+*/build/**
+*/CMakeFiles/**
