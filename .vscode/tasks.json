@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "debug build cpp",
+            "label": "Simple Debug CPP",
             "type": "shell",
             "command": "g++",
             "args": [
@@ -17,6 +17,38 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ]
+        },
+        {  
+            "label": "Complete Make Debug",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "VERBOSE=1",
+                "-C",
+                "${fileDirname}/build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn":["cmake debug"]
+        },
+        {  
+            "label": "cmake debug",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-G",
+                "'Unix Makefiles'",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-B${fileDirname}/build",
+                "-H${fileDirname}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
+        // 
     ]
 }
