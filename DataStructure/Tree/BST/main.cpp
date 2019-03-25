@@ -71,6 +71,19 @@ namespace bst {
     return max_tree;
   }
 
+  int max_depth(tree* l) {
+    if (l == nullptr) return(0);
+
+    int lDepth = max_depth(l->left);
+    int rDepth = max_depth(l->right);
+
+    if (lDepth > rDepth) {
+      return (lDepth + 1);
+    } else {
+      return (rDepth + 1);
+    }
+  }
+
   void insert_tree(tree **l, int x, tree* parent) {
     tree *p; // temporary pointer
 
@@ -144,12 +157,14 @@ namespace bst {
 
   void pprint(tree* l, int indent = 2) {
     if (l == nullptr) return;
-    std::cout << std::setw(indent) << l->item << '\n';
-    pprint(l->left, indent + 2);
-    pprint(l->right, indent +2);
-    if (indent > 2) {
-      std::cout<< std::setw(indent) << ' ';
-    }
+    indent = indent + 2;
+    pprint(l->right, indent);
+      for (int i = 2; i < indent; ++i ) 
+      {
+        std::cout << " ";
+      }
+      std::cout << l->item << std::endl;
+    pprint(l->left, indent);
   }
 
   /// - MARK: Test cases
@@ -180,6 +195,22 @@ namespace bst {
     bst::delete_tree(&root);
   }
 
+    void test_max_depth() {
+    tree* root =  new tree(5);
+    int data[] = {3,7,2,4,6,8};
+    int n = sizeof(data) / sizeof(data[0]);
+    for (int i = 0; i < n; ++i){
+      int v = data[i];
+      insert_tree(&root, v, root);
+    }
+    pprint(root);
+    std::cout << std::endl <<"------------------" << std::endl;
+    int depth = max_depth(root);
+    std::cout << "Tree's depth is: " << depth << std::endl;
+
+    traversal_in_order(root);
+  }
+
 }
 
 
@@ -188,6 +219,6 @@ namespace bst {
 int main(int argc, char* argv[]) {
 
 
-  bst::test_delete_node();
+  bst::test_max_depth();
   return EXIT_SUCCESS;
 }
