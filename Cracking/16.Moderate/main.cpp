@@ -1,6 +1,6 @@
 #include "LRU_cache.hpp"
 
 int main() {
-  LRU cache;
+  LRU::demo();
   return 0;
 }
