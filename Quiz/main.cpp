@@ -98,9 +98,47 @@ void test_find_k_largest() {
   cout << "given {0,0,0,0,0} expect: 0, actual: " << re3 << endl;
 }
 
+bool find_3_numbers_sum_to_k(const vector<int> &arr, int sum) 
+{
+  int l{0},r{0};
+  vector<int> A{arr};
+  sort(A.begin(), A.end());
+
+  for(int i = 0; i < A.size() - 2; ++i) 
+  {
+    l = i + 1; // move left and right until they are converging
+    r = A.size() - 1;
+    while (l < r) 
+    {
+      if(A[i] + A[l] + A[r] == sum)
+      {
+        printf("%d + %d + %d  = %d", A[i], 
+                       A[l], A[r], sum); 
+        return true;
+      }
+      else if (A[i] + A[l] + A[r] < sum)
+      {
+        l++;
+      } else 
+      {
+        r--;
+      }
+    }
+  }
+
+  return false;
+}
+
+void test_find_3_numbers_sum_to_k() {
+  vector<int> arr {1,4,45,6,10,8 };
+  const int sum = 22;
+  find_3_numbers_sum_to_k(arr, sum);
+}
+
 int main(int argc, char *argv []) 
 {
   // test_find_second_largest();
-  test_find_k_largest();
+  // test_find_k_largest();
+  test_find_3_numbers_sum_to_k();
   return 0;
 }
